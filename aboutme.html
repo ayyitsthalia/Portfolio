@@ -1,44 +1,63 @@
 <!DOCTYPE html>
 <html>
-	ul {
-    position: fixed;
-    top: 0;
-    width: 100%;
-}
-	<ul>
-  <li><a href="default.asp">Home</a></li>
-  <li><a href="news.asp">News</a></li>
-  <li><a href="contact.asp">Contact</a></li>
-  <li><a href="about.asp">About</a></li>
-</ul>
-	
-.active {
-    background-color: #4CAF50;
-    color: white;
-}
-	<style>
-
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-            width: 100%;
-        }
-
-        body {
-            display: table;
-        }
-
-        .my-block {
-            text-align: center;
-            display: table-cell;
-            vertical-align: middle;
-        }
-        </style>
-	
+<head>
 	<img src="Aboutme.html.png" width=1350 height=120/>
 	<img src="https://github.com/ayyitsthalia/Portfolio/blob/gh-pages/2017-06-02%2008.42.19%201.jpg?raw=true" width=150 height=150/>
-  <p>Hello! My name is Thalia Nguyen and I am Vietnamese. 
+<style>
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+li {
+    float: left;
+}
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover, .dropdown:hover .dropbtn {
+    background-color: red;
+}
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+</style>
+</head>
+<body>
+	<p>Hello! My name is Thalia Nguyen and I am Vietnamese. 
 		I am currently a senior in Mount Eden High School. I am a part of the Mount Eden Instrumental Program and I play the violin. 
 		I teach violin lessons to people ages 7 to 16. 
 		The summer of 2017, I participated in the Girls Who Code Summer Immersion Program and learned a lot of different was to code and design. 
