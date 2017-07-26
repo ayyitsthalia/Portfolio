@@ -36,16 +36,30 @@ ul.topnav li.right {float: right;}
     ul.topnav li.right, 
     ul.topnav li {float: none;}
 }
+li a:hover {
+    background-color: #111;
+	}
 </style>
-</head>
-<body>
-	<ul class="topnav">
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#life">Life</a></li>
-  <li><a href="#about">About</a></li>
-  <li class="right"><a href="#contact">Contact</a></li>
-	</ul>
 	
+<script>
+function myFunction() {
+    var x = document.getElementById("myTopnav");
+    if (x.className === "topnav") {
+        x.className += " responsive";
+    } else {
+        x.className = "topnav";
+    }
+}
+</script>
+</head>
+	<ul>
+  <li><a href="default.asp">Home</a></li>
+  <li><a href="life.asp">Life</a></li>
+  <li><a href="about.asp">About</a></li>
+  <li><a href="contact.asp">Contact</a></li>
+</ul>
+	
+<body>	
 	<div id="Home" class="tabcontent">
 		
 	</div>
