@@ -1,230 +1,101 @@
 <!DOCTYPE html>
 <html>
-<style>
-    .menuUL li{
-    /* This will arrange the LI-s next to each other */
-    display:inline;
+  <font size="4">
+  <!--resize self image-->
+   <img src="https://scontent.xx.fbcdn.net/v/t1.0-9/18581652_1548459058561474_5084153746299144267_n.jpg?oh=bbb6c61ebea1202691d83e67dcf21a9d&oe=59FC02F3" alt="Ally Thach" height="200" width="200" align="" />
+   <img src="https://scontent.fsnc1-1.fna.fbcdn.net/v/t1.0-9/20292625_1635663393174373_5901092458009886400_n.jpg?oh=51ea0c76aff4857d156b20f00bb45096&oe=5A05AEAE" alt="Banner" height="200" width="1340" />
+  <center>  
+  <h2 style="text-align:center; font-family:fantasy;">Biography</h2>
+  <p style="text-align:center;">Hello! My name is Ally Thach and I am currently a senior at Castro Valley High School. I am part of the Castro Valley High School 
+    Symphonic Orchestra and play the violin. Aside from music, I am an aspiring Computer Scientist. My dream school is Univeristy of 
+    California Irvine. I want to be able to intern and hopefully work at Riot Games in the future. Over the summer of 2017 I participated 
+    in the Girls Who Code Summer Immersion Program. This webpage is one of my long term projects for the program. Here you can find some
+    of my smaller projects!
+    <font color="ff4d94">
+  <h2 style="text-align:center; font-family:fantasy;">Fun Fact</h3>
+    </font>
+  <p style="text-align:center;">Aside from the violin, I also play the piano</p>
+    <hr>
+ <!-- Set the style of the table -->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans">
+
+    <style>
+     html { 
+  background: url(https://a248.e.akamai.net/secure.meetupstatic.com/photos/theme_body/7/4/6/0/preview_2789792.jpeg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
+      body{
+        font-family: 'Times New Roman', sans-serif;
+      }
+      table, th, td{
+        border: 2px solid #ffffff;
+        border-collapse: collapse;
+        padding: 15px;
+        text-align: center;
+        vertical-align: middle;
+        color: #000000
+      }
+      th  {
+       
+      }
+      
+    </style>
+  </head>
 
-.menuUL li a,.menuUL li a:visited{
-    /* Styling the hyperlinks of the menu as buttons */
+  <body>
 
-    float:left;
-    font-weight:bold;
-    background:url(img/button_bg.jpg) repeat-x center bottom #666666;
+    <!-- Table starts here-->
+    <div style ="overflow-x:auto;">
+      <table style="width:90%; margin:1em auto">
 
-    /* display:block allows for additional CSS rules to take effect, such as paddings: */
-    display:block;
-    border:1px solid #4D4D4D;
-    color:#CCCCCC;
-    border-top-color:#565656;
+        <!-- Define the first row of the table -->
+        <tr>
+          <th>Likes and Dislikes</th>
+        </tr>
 
-    padding:4px 6px;
-    margin:4px 5px;
-    height:16px;
+        <!-- Fill in the row for Likes -->
+        <tr>
+        <td><b>Likes</b></td>
+          <td>Music</td>
+          <td>Strawberries</td>
+          <td>Winter</td>
+        </tr>
 
-    /* Setting a CSS3 box shadow around the button */
+        <!-- Fill in the row for Dislikes -->
+        <tr>
+          <td><b>Dislikes</b></td>
+          <td>Bananas</td>
+          <td>Weather above 75°F</td>
+          <td>Spiders & Reptiles</td>
+        </tr>
 
-    -moz-box-shadow:0 0 1px black;
-    -webkit-box-shadow:0 0 1px black;
-    box-shadow:0 0 1px black;
-
-    /* CSS3 text shadow */
-    text-shadow:0 1px black;
-}
-
-.menuUL li a:hover{
-    /* On hover show the top, lighter, part of the background: */
-    background-position:center top;
-    text-decoration:none;
-}
-
-#navigation{
-    /* The navigation menu bar: */
-    background:#222222;
-    border:1px solid #111111;
-    float:left;
-    padding:5px 10px;
-}
-
-#navigation,.menuUL li a{
-    /* CSS3 rounded corners for both the navigation bar and the buttons: */
-    -moz-border-radius:4px;
-    -webkit-border-radius:4px;
-    -khtml-border-radius:4px;
-    border-radius:4px;
-}
-
-#stage{
-    /* The stage contains the individual divs that comprise the halftone icon: */
-    height:300px;
-    position:absolute;
-    right:50px;
-    top:20px;
-    width:400px;
-}
-
-.dot{
-    /* The stage contains 192 .dot divs: */
-    float:left;
-    height:25px;
-    width:25px;
-}
-
-.dot.active{
-    /* When assigned the active class, the div shows a background image of a dot: */
-    background:url(img/dot.png) no-repeat center center;
-}
-
-.clear{
-    /* Old-school clear fix hack to clear the floats: */
-    clear:both;
-}
-
-#main{
-    margin:0 auto;
-    position:relative;
-    width:900px;
-}
-</style>
-
-<script>
-    /* Set serviceMode to true to create your own shapes: */
-var serviceMode=false;
-
-$(document).ready(function(){
-
-    /* This code is executed after the DOM has been completely loaded */
-
-    var str=[];
-    var perRow = 16;
-
-    /* Generating the dot divs: */
-    for(var i=0;i<192;i++)
-    {
-        str.push('<div class="dot" id="d-'+i+'" />');
-    }
-
-    /* Joining the array into a string and adding it to the inner html of the stage div: */
-    $('#stage').html(str.join(''));
-
-    /* Using the hover method: */
-    $('#navigation li a').hover(function(e){
-
-        /* serviceDraw is a cut-out version of the draw function, used for editing and composing shapes: */
-
-        if(serviceMode)
-            serviceDraw($(this).attr('class'));
-        else
-            draw($(this).attr('class'));
-    }, function(e){});
-
-    /* Caching the dot divs into a variable for performance: */
-    dots = $('.dot');
-
-    if(serviceMode)
-    {
-        /* If we are in service mode, show borders around the dot divs, add the export link, and listen for clicks: */
-
-        dots.css({
-            border:'1px solid black',
-            width:dots.eq(0).width()-2,
-            height:dots.eq(0).height()-2,
-            cursor:'pointer'
-        });
-
-        $('<div/>').css({
-            position:'absolute',
-            bottom:-20,
-            right:0
-        }).html('<a href="" onclick="outputString();return false;">[Export Shape]</a>').appendTo('#stage');
-
-        dots.click(function(){
-            $(this).toggleClass('active');
-        });
-    }
-});
-    
-var shapes={
-    /* Each shape is described by an array of points. You can add your own shapes here, just don't forget to add a coma after each array, except for the last one */
-
-    house:[22,37,38,39, .... 166,167,168,169],
-    wrench:[22,23,24,25,26 .... 148,163],
-    envelope:[34,35,36,37, .... 153,154,155,156],
-    info:[22,23,38,39, .... 151,166,167,168]
-}
-
-var stopCounter = 0;
-var dots;
-
-function draw(shape)
-{
-    /* This function draws a shape from the shapes object */
-
-    stopCounter++;
-    var currentCounter = stopCounter;
-
-    dots.removeClass('active').css('opacity',0);
-
-    $.each(shapes[shape],function(i,j){
-
-        setTimeout(function(){
-        /* If a different shape animaton has been started during the showing of the current one, exit the function  */
-
-        if(currentCounter!=stopCounter) return false;
-
-        dots.eq(j).addClass('active').fadeTo('slow',0.4);
-
-        /* The fade animation is scheduled for 10*i millisecond into the future: */
-    },10*i);
-
-});
-}
-
-function serviceDraw(shape)
-{
-    /* A cut out version of the draw function, used in service mode */
-
-    dots.removeClass('active');
-
-    $.each(shapes[shape],function(i,j){
-        dots.eq(j).addClass('active');
-    });
-}
-
-function outputString()
-{
-    /* Exports the positions of the active dot divs as a comma-separated string: */
-
-    var str=[];
-    $('.dot.active').each(function(){
-        str.push(this.id.replace('d-',''));
-    })
-
-    prompt('Insert this string as an array in the shapes object',str.join(','));
-}
-    
-</script>
-
-
-<div id="main">
-
-<div id="navigation">
-
-<ul class="menuUL">
-<!-- The class names that are assigned to the links correspond to name of the shape that is shown on hover: -->
-<li><a href="#" class="house">Home</a></li>
-<li><a href="#" class="wrench">Services</a></li>
-<li><a href="#" class="envelope">Contact</a></li>
-<li><a href="#" class="info">About</a></li>
-</ul>
-
-<div class="clear"></div>
-</div>
-
-<div id="stage">
-<!-- The dot divs are shown here -->
-</div>
-
-</div>
+      </table>
+    </div>
+    </font>
+  <h2>Favorite Webpages</h2> <!--remember to resize images-->
+  <h3> You can click on the images for a direct link to the website!</h3>
+  <a href="https://www.youtube.com">
+    <img src="https://logosinside.com/uploads/posts/2016-08/medium/youtube-logo.png" alt="Youtube Logo" height="100" width="200" />
+  <a href="https://www.discord.com"> 
+    <br>
+    <img src="http://kualitygames.com/wp-content/uploads/2017/03/Discord_Purple_Tight.png" alt="Discord Logo" height="100" width="300" />
+  <a href="http://www.yesstyle.com/en/women.html">
+    <br>
+    <img src="https://1.soompi.io/wp-content/uploads/2014/12/yesstyle-logo-540x115.png" alt="YesStyle Logo" height="100" width="300" />
+    </a>
+    <hr>
+    <h2 style="font-family:fantasy;">Featured Projects</h2>
+    <h3>Click on the picture to be re-directed to just the image!<h3>
+      <a href="https://lh6.googleusercontent.com/j-V0p2213RK5mmIAIFx_vwBFuO1iAj3nIzzMVfBwldCcmqlcRBHB9eoSPzDbQNtLcSjShNPGQxFsURo=w1366-h638-rw">
+        <img src="https://lh6.googleusercontent.com/j-V0p2213RK5mmIAIFx_vwBFuO1iAj3nIzzMVfBwldCcmqlcRBHB9eoSPzDbQNtLcSjShNPGQxFsURo=w1366-h638-rw" alt="Side Scroller Game" height="300" width="500" />
+    </a>
+        <p style="font-weight:normal;">During the first week of Girls Who Code, I created a side scroller game. The game is very similar to the dinosaur game that appears when you
+      do not have Internet connection. Instead of cacti, there are meteors flying across the screen. The astronaut is stationed to the left
+      side of the screen and will fall back down after it jumps up. Once a meteor hits you, the game is over!</p>
+    </center>
+      
+    </body>
 </html>
