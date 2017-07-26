@@ -1,246 +1,230 @@
-<!DOCTYPE html> <!-- The new doctype -->
-
+<!DOCTYPE html>
 <html>
-<head>
-    <style>
-        header,footer,
-article,section,
-hgroup,nav,
-figure{
-    /* Giving a display value to the HTML5 rendered elements: */
-    display:block;
-}
-
-article .line{
-    /* The dividing line inside of the article is darker: */
-    background-color:#15242a;
-    border-bottom-color:#204656;
-    margin:1.3em 0;
-}
-
-footer .line{
-    margin:2em 0;
-}
-
-nav{
-    background:url(img/gradient_light.jpg) repeat-x 50% 50% #f8f8f8;
-    padding:0 5px;
-    position:absolute;
-    right:0;
-    top:4em;
-
-    border:1px solid #FCFCFC;
-
-    -moz-box-shadow:0 1px 1px #333333;
-    -webkit-box-shadow:0 1px 1px #333333;
-    box-shadow:0 1px 1px #333333;
-}
-
-nav ul li{
+<style>
+    .menuUL li{
+    /* This will arrange the LI-s next to each other */
     display:inline;
 }
 
-nav ul li a,
-nav ul li a:visited{
-    color:#565656;
-    display:block;
+.menuUL li a,.menuUL li a:visited{
+    /* Styling the hyperlinks of the menu as buttons */
+
     float:left;
-    font-size:1.25em;
     font-weight:bold;
-    margin:5px 2px;
-    padding:7px 10px 4px;
-    text-shadow:0 1px 1px white;
-    text-transform:uppercase;
+    background:url(img/button_bg.jpg) repeat-x center bottom #666666;
+
+    /* display:block allows for additional CSS rules to take effect, such as paddings: */
+    display:block;
+    border:1px solid #4D4D4D;
+    color:#CCCCCC;
+    border-top-color:#565656;
+
+    padding:4px 6px;
+    margin:4px 5px;
+    height:16px;
+
+    /* Setting a CSS3 box shadow around the button */
+
+    -moz-box-shadow:0 0 1px black;
+    -webkit-box-shadow:0 0 1px black;
+    box-shadow:0 0 1px black;
+
+    /* CSS3 text shadow */
+    text-shadow:0 1px black;
 }
 
-nav ul li a:hover{
+.menuUL li a:hover{
+    /* On hover show the top, lighter, part of the background: */
+    background-position:center top;
     text-decoration:none;
-    background-color:#f0f0f0;
 }
 
-nav, article, nav ul li a,figure{
-    /* Applying CSS3 rounded corners: */
-    -moz-border-radius:10px;
-    -webkit-border-radius:10px;
-    border-radius:10px;
+#navigation{
+    /* The navigation menu bar: */
+    background:#222222;
+    border:1px solid #111111;
+    float:left;
+    padding:5px 10px;
 }
-        /* Article styles: */
 
-#page{
-    width:960px;
+#navigation,.menuUL li a{
+    /* CSS3 rounded corners for both the navigation bar and the buttons: */
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    -khtml-border-radius:4px;
+    border-radius:4px;
+}
+
+#stage{
+    /* The stage contains the individual divs that comprise the halftone icon: */
+    height:300px;
+    position:absolute;
+    right:50px;
+    top:20px;
+    width:400px;
+}
+
+.dot{
+    /* The stage contains 192 .dot divs: */
+    float:left;
+    height:25px;
+    width:25px;
+}
+
+.dot.active{
+    /* When assigned the active class, the div shows a background image of a dot: */
+    background:url(img/dot.png) no-repeat center center;
+}
+
+.clear{
+    /* Old-school clear fix hack to clear the floats: */
+    clear:both;
+}
+
+#main{
     margin:0 auto;
     position:relative;
+    width:900px;
 }
+</style>
 
-article{
-    background-color:#213E4A;
-    margin:3em 0;
-    padding:20px;
+<script>
+    /* Set serviceMode to true to create your own shapes: */
+var serviceMode=false;
 
-    text-shadow:0 2px 0 black;
-}
+$(document).ready(function(){
 
-figure{
-    border:3px solid #142830;
-    float:right;
-    height:300px;
-    margin-left:15px;
-    overflow:hidden;
-    width:500px;
-}
-
-figure:hover{
-    -moz-box-shadow:0 0 2px #4D7788;
-    -webkit-box-shadow:0 0 2px #4D7788;
-    box-shadow:0 0 2px #4D7788;
-}
-
-figure img{
-    margin-left:-60px;
-}
-
-/* Footer styling: */
-
-footer{
-    margin-bottom:30px;
-    text-align:center;
-    font-size:0.825em;
-}
-
-footer p{
-    margin-bottom:-2.5em;
-    position:relative;
-}
-
-footer a,footer a:visited{
-    color:#cccccc;
-    background-color:#213e4a;
-    display:block;
-    padding:2px 4px;
-    z-index:100;
-    position:relative;
-}
-
-footer a:hover{
-    text-decoration:none;
-    background-color:#142830;
-}
-
-footer a.by{
-    float:left;
-
-}
-
-footer a.up{
-    float:right;
-}
-    </style>
-    <script>
-        $(document).ready(function(){
     /* This code is executed after the DOM has been completely loaded */
 
-    $('nav a,footer a.up').click(function(e){
+    var str=[];
+    var perRow = 16;
 
-        // If a link has been clicked, scroll the page to the link's hash target:
+    /* Generating the dot divs: */
+    for(var i=0;i<192;i++)
+    {
+        str.push('<div class="dot" id="d-'+i+'" />');
+    }
 
-        $.scrollTo( this.hash || 0, 1500);
-        e.preventDefault();
-    });
+    /* Joining the array into a string and adding it to the inner html of the stage div: */
+    $('#stage').html(str.join(''));
+
+    /* Using the hover method: */
+    $('#navigation li a').hover(function(e){
+
+        /* serviceDraw is a cut-out version of the draw function, used for editing and composing shapes: */
+
+        if(serviceMode)
+            serviceDraw($(this).attr('class'));
+        else
+            draw($(this).attr('class'));
+    }, function(e){});
+
+    /* Caching the dot divs into a variable for performance: */
+    dots = $('.dot');
+
+    if(serviceMode)
+    {
+        /* If we are in service mode, show borders around the dot divs, add the export link, and listen for clicks: */
+
+        dots.css({
+            border:'1px solid black',
+            width:dots.eq(0).width()-2,
+            height:dots.eq(0).height()-2,
+            cursor:'pointer'
+        });
+
+        $('<div/>').css({
+            position:'absolute',
+            bottom:-20,
+            right:0
+        }).html('<a href="" onclick="outputString();return false;">[Export Shape]</a>').appendTo('#stage');
+
+        dots.click(function(){
+            $(this).toggleClass('active');
+        });
+    }
+});
+    
+var shapes={
+    /* Each shape is described by an array of points. You can add your own shapes here, just don't forget to add a coma after each array, except for the last one */
+
+    house:[22,37,38,39, .... 166,167,168,169],
+    wrench:[22,23,24,25,26 .... 148,163],
+    envelope:[34,35,36,37, .... 153,154,155,156],
+    info:[22,23,38,39, .... 151,166,167,168]
+}
+
+var stopCounter = 0;
+var dots;
+
+function draw(shape)
+{
+    /* This function draws a shape from the shapes object */
+
+    stopCounter++;
+    var currentCounter = stopCounter;
+
+    dots.removeClass('active').css('opacity',0);
+
+    $.each(shapes[shape],function(i,j){
+
+        setTimeout(function(){
+        /* If a different shape animaton has been started during the showing of the current one, exit the function  */
+
+        if(currentCounter!=stopCounter) return false;
+
+        dots.eq(j).addClass('active').fadeTo('slow',0.4);
+
+        /* The fade animation is scheduled for 10*i millisecond into the future: */
+    },10*i);
 
 });
-    </script>
+}
 
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+function serviceDraw(shape)
+{
+    /* A cut out version of the draw function, used in service mode */
 
-    <title>Coding A CSS3 &amp; HTML5 One Page Template | Tutorialzine demo</title>
+    dots.removeClass('active');
 
-    <link rel="stylesheet" type="text/css" href="styles.css" />
+    $.each(shapes[shape],function(i,j){
+        dots.eq(j).addClass('active');
+    });
+}
 
-    <!-- Internet Explorer HTML5 enabling script: -->
+function outputString()
+{
+    /* Exports the positions of the active dot divs as a comma-separated string: */
 
-    <!--[if IE]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <style type="text/css">
+    var str=[];
+    $('.dot.active').each(function(){
+        str.push(this.id.replace('d-',''));
+    })
 
-            .clear {
-                zoom: 1;
-                display: block;
-            }
+    prompt('Insert this string as an array in the shapes object',str.join(','));
+}
+    
+</script>
 
-        </style>
 
-    <![endif]-->
+<div id="main">
 
-</head>
-<body>
+<div id="navigation">
 
-    <section id="page"> <!-- Defining the #page section with the section tag -->
+<ul class="menuUL">
+<!-- The class names that are assigned to the links correspond to name of the shape that is shown on hover: -->
+<li><a href="#" class="house">Home</a></li>
+<li><a href="#" class="wrench">Services</a></li>
+<li><a href="#" class="envelope">Contact</a></li>
+<li><a href="#" class="info">About</a></li>
+</ul>
 
-    <header> <!-- Defining the header section of the page with the appropriate tag -->
+<div class="clear"></div>
+</div>
 
-        <h1>Your Logo</h1>
+<div id="stage">
+<!-- The dot divs are shown here -->
+</div>
 
-        <h3>and a fancy slogan</h3>
-
-        <nav class="clear"> <!-- The nav link semantically marks your main site navigation -->
-
-            <ul>
-
-                <li><a href="#article1">Photoshoot</a></li>
-                <li><a href="#article2">Sweet Tabs</a></li>
-                <li><a href="#article3">Navigation Menu</a></li>
-
-            </ul>
-
-        </nav>
-
-    </header>
-  <!-- Article 1 start -->
-
-    <div class="line"></div>  <!-- Dividing line -->
-
-    <article id="article1"> <!-- The new article tag. The id is supplied so it can be scrolled into view. -->
-
-        <h2>Photoshoot Effect</h2>
-
-        <div class="line"></div>
-
-        <div class="articleBody clear">
-
-            <figure> <!-- The figure tag marks data (usually an image) that is part of the article -->
-
-                <a href="https://tutorialzine.com/2010/02/photo-shoot-css-jquery/">
-                    <img src="https://tutorialzine.com/img/featured/641.jpg" width="620" height="340" /></a>
-
-            </figure>
-
-            <p>In this tutorial, we are creating a photo shoot effect with our just-released PhotoShoot jQuery plug-in. With it you can convert a regular div on the page into a photo shooting stage simulating a camera-like feel.</p>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer luctus quam quis .... </p>
-
-        </div>
-
-    </article>
-
-    <!-- Article 1 end -->
-    <footer> <!-- Marking the footer section -->
-
-            <div class="line"></div>
-
-            <p>Copyright 2010 - YourSite.com</p> <!-- Change the copyright notice -->
-            <a href="#" class="up">Go UP</a>
-            <a href="https://tutorialzine.com/" class="by">Template by Tutorialzine</a>
-
-        </footer>
-
-    </section> <!-- Closing the #page section -->
-
-    <!-- JavaScript Includes -->
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script src="jquery.scrollTo-1.4.2/jquery.scrollTo-min.js"></script>
-    <script src="script.js"></script>
-
-    </body>
-
+</div>
 </html>
